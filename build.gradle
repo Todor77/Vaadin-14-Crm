@@ -1,0 +1,65 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.2.6.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'com.vaadin' version '0.6.0'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom 'com.vaadin:vaadin-bom:14.1.17'
+	}
+}
+
+dependencies {
+	implementation 'com.vaadin:vaadin-spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.vaadin:vaadin-charts-flow'
+
+	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.1.RELEASE'
+	compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.3.1.RELEASE'
+
+	runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.19'
+
+
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+
+	//for testing
+	testCompile group: 'junit', name: 'junit', version: '4.13'
+	testCompile group: 'com.vaadin', name: 'vaadin-testbench', version: '15.0.4'
+
+	testImplementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.8.1'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+		}
+		resources {
+			srcDir 'src/main/resources'
+		}
+	}
+}
+
+bootRun {
+	environment SPRING_PROFILES_ACTIVE: project.hasProperty('profiles') ? profiles : 'dev'
+	if (project.hasProperty('spring.profiles.active')) {
+		systemProperties['spring.profiles.active']=project.getProperty('spring.profiles.active')
+	}
+}
+
+wrapper {
+	description = "Generates gradlew[.bat] scripts"
+	gradleVersion = "6.0.1"
+	distributionType = "all"
+}
+
