@@ -7,12 +7,13 @@ The best way to create your own project based on this starter is [start.vaadin.c
 
 ## Running the Application
 
-Import the project to the IDE of your choosing as a Maven project.
+Import the project to the IDE of your choosing as a Gradle project.
 
-Run the application using `mvn spring-boot:run` or by running the `Application` class directly from your IDE.
+Run the application using running the `Application` class directly from your IDE.
 
 Open http://localhost:8080/ in your browser.
 
+//those wont work, in migration process
 If you want to run the application locally in the production mode, run `mvn spring-boot:run -Pproduction`.
 
 To run Integration Tests, execute `mvn verify -Pintegration-tests`.
